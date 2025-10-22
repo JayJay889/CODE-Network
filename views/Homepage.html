@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CODE Network</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body>
+    <h1>Welcome to CODE Network</h1>
+    <p>Share valuable contacts to grow the CODE community</p>
+    
+    <nav>
+        <a href="{{ url_for('network') }}">View Network</a>
+        <a href="{{ url_for('add_contact_form') }}">Add Contact</a>
+        <a href="{{ url_for('guide') }}">Guide</a>
+    </nav>
+</body>
+</html>

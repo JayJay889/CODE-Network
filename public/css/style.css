@@ -56,3 +56,76 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+/* ========================================
+   RESPONSIVE BREAKPOINTS
+   ======================================== */
+
+/* Mobile phones (portrait and landscape) */
+@media only screen and (max-width: 600px) {
+    body {
+        margin: 10px;
+    }
+    
+    nav {
+        padding: 8px;
+    }
+    
+    nav a {
+        display: block;
+        margin: 5px 0;
+        padding: 8px;
+    }
+    
+    form {
+        padding: 15px;
+        max-width: 100%;
+    }
+    
+    h1 {
+        font-size: 24px;
+    }
+    
+    .contact-card {
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+}
+
+/* Tablets (portrait) */
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+    body {
+        margin: 15px;
+    }
+    
+    form {
+        max-width: 500px;
+    }
+    
+    nav a {
+        padding: 12px;
+    }
+}
+
+/* Tablets (landscape) and small desktops */
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    body {
+        margin: 20px;
+    }
+    
+    form {
+        max-width: 700px;
+    }
+}
+
+/* Large desktops */
+@media only screen and (min-width: 1025px) {
+    body {
+        max-width: 1200px;
+        margin: 20px auto;
+    }
+    
+    form {
+        max-width: 800px;
+    }
+}

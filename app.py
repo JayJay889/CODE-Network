@@ -1,10 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
+
+# Load environment variables
+load_dotenv()
 
 app = Flask(__name__, template_folder='views', static_folder='public')
 
-# Database setup
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contacts.db'
+# Database setup - Supabase PostgreSQL
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SUPABASE_DB_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 

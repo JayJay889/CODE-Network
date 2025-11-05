@@ -1,17 +1,118 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CODE Network</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <title>CODE Network - Build CODE's Community of Opportunity</title>
+    <link rel="stylesheet" href="/public/css/style.css" />
 </head>
 <body>
-    <h1>Welcome to CODE Network</h1>
-    <p>Share valuable contacts to grow the CODE community</p>
-    
-    <nav>
-        <a href="{{ url_for('network') }}">View Network</a>
-        <a href="{{ url_for('add_contact_form') }}">Add Contact</a>
-        <a href="{{ url_for('guide') }}">Guide</a>
+    <!-- Header Navigation -->
+    <nav class="top-nav">
+        <div class="nav-brand">CODE Network</div>
+        <div class="nav-links">
+            <a href="/network">View Network</a>
+            <a href="/add-contact">Add Contact</a>
+            <a href="/guide">Guide</a>
+        </div>
     </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="headline">Build CODE's community of opportunity.</h1>
+        <p class="subhead">Share trusted contacts so students, alumni, and founders meet the right people faster.</p>
+        
+        <div class="cta-buttons">
+            <a href="/add-contact" class="btn btn-primary">Add Contact</a>
+            <a href="/network" class="btn btn-secondary">View Network</a>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <div class="mission-box">
+            <h3>Mission</h3>
+            <p>Make warm introductions the default at CODE—so talent meets opportunity.</p>
+        </div>
+        <div class="vision-box">
+            <h3>Vision</h3>
+            <p>A living directory where any member finds speakers, mentors, and hiring leads in seconds.</p>
+        </div>
+    </section>
+
+    <!-- Why It's Valuable -->
+    <section class="value-prop">
+        <h2>Why It's Valuable</h2>
+        <p class="value-text">Warm intros beat cold outreach. Your one contact can help dozens of CODE members.</p>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Add</h3>
+                <p>Submit a contact with LinkedIn or email and a short value note.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Tag</h3>
+                <p>Label as speaker, mentor, hiring lead, alumni, or partner.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Share</h3>
+                <p>We surface segments for events, mentoring, and internships.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust & Privacy -->
+    <section class="trust-privacy">
+        <h2>Trust and Privacy</h2>
+        <div class="privacy-grid">
+            <div class="privacy-item">
+                <h4>🤝 Consent</h4>
+                <p>Share only with permission. Email optional; LinkedIn accepted.</p>
+            </div>
+            <div class="privacy-item">
+                <h4>👁️ Visibility</h4>
+                <p>Profiles are visible to the CODE community; sensitive info is hidden by default.</p>
+            </div>
+            <div class="privacy-item">
+                <h4>⚙️ Control</h4>
+                <p>Edit or remove contacts anytime; see the last updated timestamp on profiles.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof & Examples -->
+    <section class="examples">
+        <h2>Proof and Examples</h2>
+        <div class="example-cards">
+            <div class="example-card">
+                <p>"Ex‑Product Lead at N26—great fintech speaker, open to mentoring."</p>
+            </div>
+            <div class="example-card">
+                <p>"CTO at an IoT startup—hiring embedded interns; prefers short intros."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <h2>Start Here</h2>
+        <p class="promise">Contribute one contact; help the community this week.</p>
+        <div class="cta-buttons">
+            <a href="/add-contact" class="btn btn-primary">Add Your First Contact</a>
+            <a href="/network" class="btn btn-secondary">Browse Network</a>
+            <a href="/guide" class="btn btn-tertiary">Read the Guide</a>
+        </div>
+        <p class="privacy-note">🔒 We respect privacy and consent. All contributions are voluntary and can be edited anytime.</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 CODE Network. Built for the CODE community.</p>
+    </footer>
 </body>
 </html>

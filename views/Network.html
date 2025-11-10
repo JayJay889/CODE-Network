@@ -94,8 +94,14 @@
                     </div>
 
                     <div class="col-tags">
-                        <span class="tag tag-default">Contact</span>
-                        <!-- You can add more tags here based on your data -->
+
+                        {% if contact.tags %}
+                            {% for tag in contact.tags.split(',') %}
+                                <span class="tag tag-{{ tag.lower().replace(' ', '-') }}">{{ tag }}</span>
+                            {% endfor %}
+                        {% else %}
+                            <span class="tag tag-default">No tags</span>
+                        {% endif %}
                     </div>
 
                     <div class="col-contact">

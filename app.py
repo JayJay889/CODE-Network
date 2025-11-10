@@ -24,6 +24,7 @@ class Contact(db.Model):
     position = db.Column(db.String(100))
     linkedin_url = db.Column(db.String(200))
     value_description = db.Column(db.Text)
+    tags = db.Column(db.String(200))  
 
 # Routes
 @app.route('/')
@@ -45,6 +46,7 @@ def add_contact_form():
 
 @app.route('/add-contact', methods=['POST'])
 def add_contact_submit():
+    # Get all the regular form fields
     first_name = request.form.get('first_name')
     last_name = request.form.get('last_name')
     email = request.form.get('email')
@@ -54,6 +56,13 @@ def add_contact_submit():
     linkedin_url = request.form.get('linkedin_url')
     value_description = request.form.get('value_description')
     
+    
+    selected_tags = request.form.getlist('tags')
+    
+
+    tags_string = ','.join(selected_tags)
+    
+    # Create new contact with all fields including tags
     new_contact = Contact(
         first_name=first_name,
         last_name=last_name,
@@ -62,7 +71,8 @@ def add_contact_submit():
         company=company,
         position=position,
         linkedin_url=linkedin_url,
-        value_description=value_description
+        value_description=value_description,
+        tags=tags_string  # NEW: Save the tags
     )
     
     db.session.add(new_contact)

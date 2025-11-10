@@ -29,7 +29,9 @@ class Contact(db.Model):
 # Routes
 @app.route('/')
 def home():
-    return render_template('Homepage.html')
+    # Get the 5 most recent contacts (newest first)
+    recent_contacts = Contact.query.order_by(Contact.id.desc()).limit(5).all()
+    return render_template('Homepage.html', recent_contacts=recent_contacts)
 
 @app.route('/network')
 def network():

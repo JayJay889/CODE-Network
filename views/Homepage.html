@@ -104,6 +104,48 @@
         </div>
     </section>
 
+    <!-- Recent Contacts Section -->
+    <section class="recent-contacts">
+        <h2>Recently Added to Network</h2>
+        <p class="section-description">See who just joined our community</p>
+        
+        {% if recent_contacts %}
+            <div class="recent-contacts-grid">
+                {% for contact in recent_contacts %}
+                <div class="recent-contact-card">
+                    <div class="contact-avatar">👤</div>
+                    <div class="contact-info">
+                        <h3 class="contact-name">{{ contact.first_name }} {{ contact.last_name }}</h3>
+                        {% if contact.position and contact.company %}
+                            <p class="contact-role">{{ contact.position }} at {{ contact.company }}</p>
+                        {% elif contact.position %}
+                            <p class="contact-role">{{ contact.position }}</p>
+                        {% elif contact.company %}
+                            <p class="contact-role">{{ contact.company }}</p>
+                        {% endif %}
+                        
+                        {% if contact.tags %}
+                            <div class="contact-tags">
+                                {% for tag in contact.tags.split(',') %}
+                                    <span class="mini-tag">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="view-all">
+                <a href="/network" class="btn btn-secondary">View Full Network →</a>
+            </div>
+        {% else %}
+            <div class="empty-recent">
+                <p>No contacts yet. Be the first to add someone!</p>
+                <a href="/add-contact" class="btn btn-primary">Add First Contact</a>
+            </div>
+        {% endif %}
+    </section>
+
     <!-- Final CTA -->
     <section class="final-cta">
         <h2>Start Here</h2>

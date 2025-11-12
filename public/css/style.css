@@ -20,7 +20,6 @@ nav a {
     padding: 10px;
     margin-right: 10px;
 }
-
 nav a:hover {
     background-color: #45a049;
 }
@@ -52,19 +51,17 @@ button {
     border: none;
     cursor: pointer;
 }
-
 button:hover {
     background-color: #45a049;
 }
 
-/* Checkbox group styling */
+/* checkboxes */
 .checkbox-group {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin: 10px 0;
 }
-
 .checkbox-label {
     display: flex;
     align-items: center;
@@ -79,20 +76,16 @@ button:hover {
     cursor: pointer;
 }
 
-/* ========================================
-   RESPONSIVE BREAKPOINTS
-   ======================================== */
 
-/* Mobile phones (portrait and landscape) */
+/* todo fix later - responsive stuff not working perfectly on all phones */
+/* mobile phones */
 @media only screen and (max-width: 600px) {
     body {
         margin: 10px;
     }
-    
     nav {
         padding: 8px;
     }
-    
     nav a {
         display: block;
         margin: 5px 0;
@@ -103,7 +96,6 @@ button:hover {
         padding: 15px;
         max-width: 100%;
     }
-    
     h1 {
         font-size: 24px;
     }
@@ -113,12 +105,10 @@ button:hover {
         margin-bottom: 10px;
     }
 }
-/* Phones */
 @media only screen and (min-width: 601px) and (max-width: 768px) {
     body {
         margin: 15px;
     }
-    
     form {
         max-width: 500px;
     }
@@ -128,12 +118,11 @@ button:hover {
     }
 }
 
-/* Tablets */
+/* tablets */
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
     body {
         margin: 20px;
     }
-    
     form {
         max-width: 700px;
     }
@@ -145,17 +134,13 @@ button:hover {
         max-width: 1200px;
         margin: 20px auto;
     }
-    
     form {
         max-width: 800px;
     }
 }
 
-/* ========================================
-   HOMEPAGE SPECIFIC STYLES
-   ======================================== */
 
-/* Top Navigation */
+/* homepage  */
 .top-nav {
     display: flex;
     justify-content: space-between;
@@ -193,7 +178,6 @@ button:hover {
     color: white;
     margin: 0 -20px;
 }
-
 .headline {
     font-size: 42px;
     margin: 0 0 20px 0;
@@ -209,7 +193,7 @@ button:hover {
     opacity: 0.95;
 }
 
-/* Button Styles */
+/* Buttons */
 .cta-buttons {
     display: flex;
     gap: 15px;
@@ -217,7 +201,6 @@ button:hover {
     flex-wrap: wrap;
     margin: 20px 0;
 }
-
 .btn {
     display: inline-block;
     padding: 12px 30px;
@@ -261,7 +244,7 @@ button:hover {
     color: #667eea;
 }
 
-/* Mission & Vision */
+/* mission and vision boxes */
 .mission-vision {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -290,7 +273,7 @@ button:hover {
     color: #555;
 }
 
-/* Image Section */
+/* Images */
 .image-section {
     display: flex;
     gap: 20px;
@@ -306,7 +289,7 @@ button:hover {
     border-radius: 8px;
 }
 
-/* Value Proposition */
+/* todo fix later - make this section better */
 .value-prop {
     text-align: center;
     padding: 50px 20px;
@@ -327,13 +310,12 @@ button:hover {
     line-height: 1.7;
 }
 
-/* How It Works */
+/* how it works secttion */
 .how-it-works {
     padding: 50px 20px;
     background-color: #f9f9f9;
     margin: 0 -20px;
 }
-
 .how-it-works h2 {
     text-align: center;
     font-size: 32px;
@@ -382,12 +364,11 @@ button:hover {
     line-height: 1.6;
 }
 
-/* Trust & Privacy */
+/* privacy   */
 .trust-privacy {
     padding: 50px 20px;
     background-color: white;
 }
-
 .trust-privacy h2 {
     text-align: center;
     font-size: 32px;
@@ -422,13 +403,12 @@ button:hover {
     margin: 0;
 }
 
-/* Examples */
+/* example cards */
 .examples {
     padding: 50px 20px;
     background-color: #f9f9f9;
     margin: 0 -20px;
 }
-
 .examples h2 {
     text-align: center;
     font-size: 32px;
@@ -460,12 +440,11 @@ button:hover {
     font-size: 16px;
 }
 
-/* Recent Contacts Section */
+/* recent contacts section */
 .recent-contacts {
     padding: 50px 20px;
     background-color: white;
 }
-
 .recent-contacts h2 {
     text-align: center;
     font-size: 32px;
@@ -561,7 +540,7 @@ button:hover {
     margin-bottom: 20px;
 }
 
-/* Final CTA */
+/*  call to action */
 .final-cta {
     text-align: center;
     padding: 60px 20px;
@@ -569,7 +548,6 @@ button:hover {
     color: white;
     margin: 0 -20px;
 }
-
 .final-cta h2 {
     font-size: 36px;
     margin: 0 0 20px 0;
@@ -589,7 +567,9 @@ button:hover {
     margin: 30px auto 0;
 }
 
-/* Footer */
+
+
+/* footer at bottom */
 footer {
     text-align: center;
     padding: 30px 20px;
@@ -597,22 +577,20 @@ footer {
     color: white;
     margin: 0 -20px -20px -20px;
 }
-
 footer p {
     margin: 0;
     font-size: 14px;
 }
 
-/* Responsive Adjustments for Homepage */
+
+/* responsive stuff for homepage */
 @media only screen and (max-width: 768px) {
     .headline {
         font-size: 32px;
     }
-    
     .subhead {
         font-size: 18px;
     }
-    
     .mission-vision {
         grid-template-columns: 1fr;
     }
@@ -622,7 +600,6 @@ footer p {
         text-align: center;
         padding: 15px;
     }
-    
     .nav-links {
         margin-top: 15px;
     }
@@ -631,19 +608,14 @@ footer p {
         display: inline-block;
         margin: 5px;
     }
-    
-    /* Stack images on mobile */
     .image-section {
         flex-direction: column;
         align-items: center;
     }
-    
     .image-section img {
         width: 100%;
         max-width: 100%;
     }
-    
-    /* Recent contacts on mobile */
     .recent-contacts-grid {
         grid-template-columns: 1fr;
     }
@@ -652,7 +624,6 @@ footer p {
         flex-direction: column;
         text-align: center;
     }
-    
     .contact-avatar {
         font-size: 50px;
     }
@@ -662,11 +633,8 @@ footer p {
     }
 }
 
-/* ========================================
-   NETWORK PAGE SPECIFIC STYLES
-   ======================================== */
 
-/* Active nav link */
+/* network page styling */
 .nav-links a.active {
     background-color: #45a049;
     font-weight: bold;
@@ -700,12 +668,11 @@ footer p {
     margin: 0 auto;
 }
 
-/* Search Section */
+/* search section */
 .search-section {
     padding: 30px 20px;
     background-color: white;
 }
-
 .search-container {
     max-width: 900px;
     margin: 0 auto;
@@ -749,7 +716,7 @@ footer p {
     border-color: #4CAF50;
 }
 
-/* Network Info Boxes */
+/* info boxes */
 .network-info {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -780,12 +747,11 @@ footer p {
     line-height: 1.5;
 }
 
-/* Contacts Section */
+/* contacts list */
 .contacts-section {
     padding: 40px 20px;
     background-color: white;
 }
-
 .contacts-header {
     display: flex;
     justify-content: space-between;
@@ -806,14 +772,13 @@ footer p {
     font-size: 14px;
 }
 
-/* Contacts Table */
+/* todo fix later - table layout could be better */
 .contacts-table {
     background-color: white;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
-
 .table-header {
     display: grid;
     grid-template-columns: 2fr 3fr 1fr 1.5fr 1fr;
@@ -842,7 +807,6 @@ footer p {
     border-bottom: none;
 }
 
-/* Contact columns */
 .col-name, .col-value, .col-tags, .col-contact, .col-actions {
     display: flex;
     flex-direction: column;
@@ -873,7 +837,7 @@ footer p {
     font-style: italic;
 }
 
-/* Tags */
+/* tags styling */
 .tag {
     display: inline-block;
     padding: 5px 12px;
@@ -882,8 +846,6 @@ footer p {
     font-weight: 600;
     margin: 2px;
 }
-
-/* Different colors for different tag types */
 .tag-default {
     background-color: #e3f2fd;
     color: #1976d2;
@@ -914,6 +876,7 @@ footer p {
     color: #c2185b;
 }
 
+
 /* Contact Links */
 .contact-link {
     display: block;
@@ -935,7 +898,6 @@ footer p {
     flex-direction: row;
     gap: 8px;
 }
-
 .btn-edit, .btn-delete {
     display: inline-block;
     padding: 6px 12px;
@@ -967,13 +929,11 @@ footer p {
     transform: translateY(-1px);
 }
 
-/* Button Group for Edit Form */
 .button-group {
     display: flex;
     gap: 10px;
     margin-top: 20px;
 }
-
 .btn-save {
     background-color: #4CAF50;
     color: white;
@@ -1004,7 +964,8 @@ footer p {
     background-color: #757575;
 }
 
-/* Empty State */
+
+/* when no contacts */
 .empty-state {
     text-align: center;
     padding: 60px 20px;
@@ -1012,7 +973,6 @@ footer p {
     border-radius: 10px;
     margin: 20px 0;
 }
-
 .empty-icon {
     font-size: 80px;
     margin-bottom: 20px;
@@ -1030,7 +990,6 @@ footer p {
     margin: 0 0 25px 0;
 }
 
-/* Action Strip */
 .action-strip {
     background-color: #fff9e6;
     border-left: 4px solid #ffc107;
@@ -1038,38 +997,34 @@ footer p {
     margin: 30px 0 0 0;
     border-radius: 5px;
 }
-
 .action-hint {
     margin: 0;
     color: #666;
     font-size: 14px;
 }
 
-/* Responsive Adjustments for Network Page */
+
+/* responsive for network page */
 @media only screen and (max-width: 768px) {
     .table-header,
     .contact-row {
         grid-template-columns: 1fr;
         gap: 10px;
     }
-    
     .table-header {
-        display: none; /* Hide column headers on mobile */
+        display: none;
     }
-    
     .contact-row {
         padding: 20px;
         border: 1px solid #ddd;
         border-radius: 8px;
         margin-bottom: 15px;
     }
-    
     .col-actions {
         flex-direction: row;
         gap: 10px;
         margin-top: 15px;
     }
-    
     .btn-edit, .btn-delete {
         flex: 1;
         padding: 10px;
@@ -1079,7 +1034,6 @@ footer p {
         content: "👤 ";
         font-weight: bold;
     }
-    
     .col-value::before {
         content: "💡 ";
         font-weight: bold;
@@ -1093,14 +1047,12 @@ footer p {
         display: block;
         margin-top: 10px;
     }
-    
     .col-contact::before {
         content: "📞 ";
         font-weight: bold;
         display: block;
         margin-top: 10px;
     }
-    
     .contacts-header {
         flex-direction: column;
         align-items: flex-start;
@@ -1109,62 +1061,46 @@ footer p {
     .filter-tags {
         justify-content: flex-start;
     }
-    
     .network-info {
         grid-template-columns: 1fr;
     }
 }
 
-/* ========================================
-   ADD CONTACT PAGE - RESPONSIVE BREAKPOINTS
-   (Simple styles for beginners)
-   ======================================== */
 
-/* 📱 PHONES (Small screens up to 600px) */
+
+
+
+/* add contact page responsive */
 @media only screen and (max-width: 600px) {
-    /* Make body margins smaller on phones */
     body {
         margin: 10px;
     }
-    
-    /* Make heading smaller so it fits */
     h1 {
         font-size: 24px;
         margin: 10px 0;
     }
-    
-    /* Stack navigation links vertically on phones */
     nav {
         padding: 10px;
     }
-    
     nav a {
-        display: block; /* Makes links stack vertically */
+        display: block;
         margin: 5px 0;
         text-align: center;
     }
-    
-    /* Make form take full width on phones */
     form {
-        max-width: 100%; /* Full width */
+        max-width: 100%;
         padding: 15px;
         margin: 0;
     }
-    
-    /* Make inputs easier to tap on phones */
     input, textarea {
-        font-size: 16px; /* Prevents iPhone zoom */
-        padding: 12px; /* Bigger tap targets */
+        font-size: 16px;
+        padding: 12px;
     }
-    
-    /* Make button full width and bigger */
     button {
-        width: 100%; /* Full width button */
+        width: 100%;
         padding: 15px;
         font-size: 16px;
     }
-    
-    /* Make labels easier to read */
     label {
         font-size: 16px;
         font-weight: bold;
@@ -1173,39 +1109,30 @@ footer p {
     }
 }
 
-/* 📱 TABLETS (Medium screens 601px to 900px) */
+
+/* tablets */
 @media only screen and (min-width: 601px) and (max-width: 900px) {
-    /* Center the form on tablets */
     form {
-        max-width: 500px; /* Not too wide */
-        margin: 20px auto; /* Center it */
+        max-width: 500px;
+        margin: 20px auto;
         padding: 25px;
     }
-    
-    /* Keep heading a good size */
     h1 {
         font-size: 32px;
         text-align: center;
     }
-    
-    /* Navigation stays horizontal on tablets */
     nav {
         text-align: center;
         padding: 12px;
     }
-    
     nav a {
         display: inline-block;
         margin: 0 10px;
     }
-    
-    /* Comfortable input sizes for tablets */
     input, textarea {
         font-size: 16px;
         padding: 10px;
     }
-    
-    /* Button looks nice but not full width */
     button {
         width: auto;
         min-width: 200px;
@@ -1213,52 +1140,43 @@ footer p {
     }
 }
 
-/* 💻 DESKTOP (Large screens 901px and up) */
+
+
+/* desktop */
 @media only screen and (min-width: 901px) {
-    /* Nice centered form on desktop */
     form {
         max-width: 600px;
-        margin: 30px auto; /* Center with more space */
+        margin: 30px auto;
         padding: 30px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Nice shadow */
-        border-radius: 10px; /* Rounded corners */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-radius: 10px;
     }
-    
-    /* Larger heading on desktop */
     h1 {
         font-size: 36px;
         text-align: center;
         margin: 20px 0;
     }
-    
-    /* Navigation looks good horizontally */
     nav {
         text-align: center;
         padding: 15px;
     }
-    
     nav a {
         display: inline-block;
         margin: 0 15px;
         padding: 12px 20px;
     }
-    
-    /* Desktop-sized inputs */
     input, textarea {
         font-size: 16px;
         padding: 10px;
     }
-    
-    /* Nice button size for desktop */
     button {
         width: auto;
         min-width: 200px;
         padding: 12px 40px;
         font-size: 16px;
     }
-    
     button:hover {
-        transform: translateY(-2px); /* Lift effect on hover */
+        transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
 }

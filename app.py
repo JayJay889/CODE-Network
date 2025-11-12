@@ -3,17 +3,14 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
 
-# Load environment variables
 load_dotenv()
 
 app = Flask(__name__, template_folder='views', static_folder='public')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///contacts.db'
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
-# Database model
+# Database maybe add more fields?
 class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(100), nullable=False)
@@ -24,19 +21,18 @@ class Contact(db.Model):
     position = db.Column(db.String(100))
     linkedin_url = db.Column(db.String(200))
     value_description = db.Column(db.Text)
-    tags = db.Column(db.String(200))  
+    tags = db.Column(db.String(200))
 
-# Routes
 @app.route('/')
 def home():
-    # Get the 5 most recent contacts (newest first)
-    recent_contacts = Contact.query.order_by(Contact.id.desc()).limit(5).all()
-    return render_template('Homepage.html', recent_contacts=recent_contacts)
+    # last 5 people in Database
+    stuff = Contact.query.order_by(Contact.id.desc()).limit(5).all()
+    return render_template('Homepage.html', recent_contacts=stuff)
 
 @app.route('/network')
 def network():
-    contacts = Contact.query.all()
-    return render_template('Network.html', contacts=contacts)
+    all_contacts = Contact.query.all()
+    return render_template('Network.html', contacts=all_contacts)
 
 @app.route('/guide')
 def guide():
@@ -48,77 +44,69 @@ def add_contact_form():
 
 @app.route('/add-contact', methods=['POST'])
 def add_contact_submit():
-    # Get all the regular form fields
-    first_name = request.form.get('first_name')
-    last_name = request.form.get('last_name')
-    email = request.form.get('email')
-    phone = request.form.get('phone')
-    company = request.form.get('company')
-    position = request.form.get('position')
-    linkedin_url = request.form.get('linkedin_url')
-    value_description = request.form.get('value_description')
+    fname = request.form.get('first_name')
+    lname = request.form.get('last_name')
+    mail = request.form.get('email')
+    phonenumber = request.form.get('phone')
+    comp = request.form.get('company')
+    pos = request.form.get('position')
+    linkedin = request.form.get('linkedin_url')
+    description = request.form.get('value_description')
     
     
-    selected_tags = request.form.getlist('tags')
+    tag_list = request.form.getlist('tags')
+    tags_str = ','.join(tag_list)
     
- 
-    tags_string = ','.join(selected_tags)
-    
-    # Create new contact with all fields including tags
-    new_contact = Contact(
-        first_name=first_name,
-        last_name=last_name,
-        email=email,
-        phone=phone,
-        company=company,
-        position=position,
-        linkedin_url=linkedin_url,
-        value_description=value_description,
-        tags=tags_string  # NEW: Save the tags
+    # todo fix lter (should validate email maybe??
+    person = Contact(
+        first_name=fname,
+        last_name=lname,
+        email=mail,
+        phone=phonenumber,
+        company=comp,
+        position=pos,
+        linkedin_url=linkedin,
+        value_description=description,
+        tags=tags_str
     )
     
-    db.session.add(new_contact)
+    db.session.add(person)
     db.session.commit()
     
     return redirect(url_for('network'))
 
 @app.route('/edit-contact/<int:contact_id>')
 def edit_contact_form(contact_id):
-    # Find the contact by ID
-    contact = Contact.query.get_or_404(contact_id)
-    return render_template('edit-contact.html', contact=contact)
+    person = Contact.query.get_or_404(contact_id)
+    return render_template('edit-contact.html', contact=person)
 
 @app.route('/edit-contact/<int:contact_id>', methods=['POST'])
 def edit_contact_submit(contact_id):
-    # Find the contact to update
-    contact = Contact.query.get_or_404(contact_id)
+    person = Contact.query.get_or_404(contact_id)
     
-    # Update all fields with new data
-    contact.first_name = request.form.get('first_name')
-    contact.last_name = request.form.get('last_name')
-    contact.email = request.form.get('email')
-    contact.phone = request.form.get('phone')
-    contact.company = request.form.get('company')
-    contact.position = request.form.get('position')
-    contact.linkedin_url = request.form.get('linkedin_url')
-    contact.value_description = request.form.get('value_description')
+    person.first_name = request.form.get('first_name')
+    person.last_name = request.form.get('last_name')
+    person.email = request.form.get('email')
+    person.phone = request.form.get('phone')
+    person.company = request.form.get('company')
+    person.position = request.form.get('position')
+    person.linkedin_url = request.form.get('linkedin_url')
+    person.value_description = request.form.get('value_description')
     
-    # Update tags
-    selected_tags = request.form.getlist('tags')
-    contact.tags = ','.join(selected_tags)
     
-    # Save changes to database
+    tag_list = request.form.getlist('tags')
+    person.tags = ','.join(tag_list)
+    
     db.session.commit()
     
     return redirect(url_for('network'))
 
 @app.route('/delete-contact/<int:contact_id>')
 def delete_contact(contact_id):
-    # Find the contact to delete
-    contact = Contact.query.get_or_404(contact_id)
+    person = Contact.query.get_or_404(contact_id)
     
-    # Delete from database
-    db.session.delete(contact)
+    # todo fix later ( add confirmation popup)
+    db.session.delete(person)
     db.session.commit()
     
     return redirect(url_for('network'))

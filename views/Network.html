@@ -3,9 +3,10 @@
 <head>
     <title>Community Directory - CODE Network</title>
     <link rel="stylesheet" href="/public/css/style.css" />
+    <script src="/public/js/script.js"></script>
 </head>
 <body>
-    <!-- Top Navigation -->
+    <!-- Top Page Navigation -->
     <nav class="top-nav">
         <div class="nav-brand">CODE Network</div>
         <div class="nav-links">
@@ -16,7 +17,8 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
+
+
     <section class="page-header">
         <h1 class="page-title">Community Directory</h1>
         <p class="page-subtitle">A trusted list of speakers, mentors, and hiring leads for CODE.</p>
@@ -25,7 +27,7 @@
         </p>
     </section>
 
-    <!-- Search and Filter Section -->
+    <!-- Search plus Filter Section -->
     <section class="search-section">
         <div class="search-container">
             <input type="text" class="search-box" placeholder="🔍 Search by name, role, company, or tag..." />
@@ -39,7 +41,7 @@
         </div>
     </section>
 
-    <!-- Info Boxes -->
+
     <section class="network-info">
         <div class="info-box">
             <h4>💡 Value Notes</h4>
@@ -55,15 +57,16 @@
         </div>
     </section>
 
-    <!-- Contacts List -->
+    <!-- List of teh Contacts -->
     <section class="contacts-section">
         <div class="contacts-header">
             <h2>Directory ({{ contacts|length }} contacts)</h2>
             <a href="/add-contact" class="btn btn-primary btn-small">+ Add Contact</a>
         </div>
 
+
+
         {% if contacts %}
-            <!-- Contacts Table -->
             <div class="contacts-table">
                 <div class="table-header">
                     <div class="col-name">Name & Company</div>
@@ -85,7 +88,6 @@
                         <p class="contact-role">{{ contact.company }}</p>
                         {% endif %}
                     </div>
-
                     <div class="col-value">
                         {% if contact.value_description %}
                         <p class="value-note">{{ contact.value_description }}</p>
@@ -93,7 +95,6 @@
                         <p class="value-note placeholder">No description yet</p>
                         {% endif %}
                     </div>
-
                     <div class="col-tags">
 
                         {% if contact.tags %}
@@ -126,8 +127,8 @@
                 {% endfor %}
             </div>
 
+
         {% else %}
-            <!-- Empty State -->
             <div class="empty-state">
                 <div class="empty-icon">📭</div>
                 <h3>No contacts yet</h3>
@@ -135,9 +136,11 @@
                 <a href="/add-contact" class="btn btn-primary">Add Your First Contact</a>
             </div>
         {% endif %}
+
     </section>
 
-    <!-- Action Strip (for future features) -->
+    
+    <!-- todo fix later: add export function -->
     <section class="action-strip">
         <p class="action-hint">
             <strong>💡 Pro tip:</strong> Select contacts to tag, assign a follow‑up, start an email/LinkedIn draft, or export.

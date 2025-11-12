@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Contact</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 <body>
     <h1>Add New Contact</h1>
@@ -13,10 +13,13 @@
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('network') }}">View Network</a>
     </nav>
-    
     <br>
     
-    <form action="{{ url_for('add_contact_submit') }}" method="POST">
+
+
+
+
+    <form action="{{ url_for('add_contact_submit') }}" method="POST" onsubmit="return checkForm()">
         <label>First Name*</label>
         <input type="text" name="first_name" required>
         
@@ -41,7 +44,6 @@
         <label>Why valuable to CODE?</label>
         <textarea name="value_description" rows="4"></textarea>
         
-
         <label>Tags (select all that apply)</label>
         <div class="checkbox-group">
             <label class="checkbox-label">
@@ -64,6 +66,9 @@
         <br>
         <button type="submit">Add Contact</button>
     </form>
+
+
+    
 </body>
 </html>
 

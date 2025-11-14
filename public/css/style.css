@@ -157,6 +157,20 @@ button:hover {
     color: white;
 }
 
+/* burger menu*/
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+.burger-menu span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: 0.3s;
+}
+
 .nav-links a {
     color: white;
     text-decoration: none;
@@ -583,7 +597,7 @@ footer p {
 }
 
 
-/* responsive stuff for homepage */
+/* responsive homepage */
 @media only screen and (max-width: 768px) {
     .headline {
         font-size: 32px;
@@ -595,18 +609,29 @@ footer p {
         grid-template-columns: 1fr;
     }
     
+    /* phone with burger */
+    
     .top-nav {
-        flex-direction: column;
-        text-align: center;
+        flex-wrap: wrap;
         padding: 15px;
     }
+    .burger-menu {
+        display: flex;
+    }
     .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
         margin-top: 15px;
     }
-    
+
+    .nav-links.active {
+        display: flex;
+    }
     .nav-links a {
-        display: inline-block;
-        margin: 5px;
+        display: block;
+        margin: 5px 0;
+        text-align: center;
     }
     .image-section {
         flex-direction: column;
@@ -620,6 +645,7 @@ footer p {
         grid-template-columns: 1fr;
     }
     
+
     .recent-contact-card {
         flex-direction: column;
         text-align: center;

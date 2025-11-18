@@ -111,6 +111,27 @@ def delete_contact(contact_id):
     
     return redirect(url_for('network'))
 
+# Routing
+
+@app.route('/contact/<int:id>')
+def view_contact(id):
+
+    person = Contact.query.get_or_404(id)
+    return render_template('contact-detail.html', contact=person)
+
+
+
+
+
+@app.route('/person/<int:contact_id>')
+def show_person(contact_id):
+    p = Contact.query.get_or_404(contact_id)
+    return render_template('contact-detail.html', contact=p)
+
+
+
+
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()

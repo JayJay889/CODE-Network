@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ contact.first_name }} {{ contact.last_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <h1>Contact Details</h1>
+    
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/network">Back to Network</a>
+    </nav>
+    
+    <br>
+    
+    <!--  make this look beter wit styling -->
+    <div class="contact-card">
+        <h2>{{ contact.first_name }} {{ contact.last_name }}</h2>
+        
+        
+        {% if contact.position or contact.company %}
+        <p><strong>Role:</strong> 
+            {% if contact.position %}{{ contact.position }}{% endif %}
+            {% if contact.position and contact.company %} at {% endif %}
+            {% if contact.company %}{{ contact.company }}{% endif %}
+
+        </p>
+        {% endif %}
+        
+        <p><strong>Email:</strong> {{ contact.email }}</p>
+        
+        {% if contact.phone %}
+        <p><strong>Phone:</strong> {{ contact.phone }}</p>
+        {% endif %}
+        
+
+        {% if contact.linkedin_url %}
+        <p><strong>LinkedIn:</strong> <a href="{{ contact.linkedin_url }}" target="_blank">View Profile</a></p>
+        {% endif %}
+        
+
+        {% if contact.value_description %}
+        <p><strong>Why Valuable:</strong><br>
+        {{ contact.value_description }}</p>
+        {% endif %}
+        
+
+        {% if contact.tags %}
+        <p><strong>Tags:</strong> {{ contact.tags }}</p>
+        {% endif %}
+        
+        <br>
+        <a href="{{ url_for('edit_contact_form', contact_id=contact.id) }}" class="btn btn-primary">Edit Contact</a>
+        <a href="{{ url_for('delete_contact', contact_id=contact.id) }}" class="btn btn-secondary" onclick="return confirm('Delete this contact?')">Delete</a>
+    </div>
+
+</body>
+
+</html>
+

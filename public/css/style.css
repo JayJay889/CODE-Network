@@ -171,6 +171,10 @@ button:hover {
     transition: 0.3s;
 }
 
+.nav-links {
+    display: flex;
+}
+
 .nav-links a {
     color: white;
     text-decoration: none;

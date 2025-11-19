@@ -84,7 +84,9 @@
                 {% for contact in contacts %}
                 <div class="contact-row">
                     <div class="col-name">
-                        <h3 class="contact-name">{{ contact.first_name }} {{ contact.last_name }}</h3>
+                        <a href="/contact/{{ contact.id }}" style="text-decoration: none; color: inherit;">
+                            <h3 class="contact-name">{{ contact.first_name }} {{ contact.last_name }}</h3>
+                        </a>
                         {% if contact.position and contact.company %}
                         <p class="contact-role">{{ contact.position }} at {{ contact.company }}</p>
                         {% elif contact.position %}

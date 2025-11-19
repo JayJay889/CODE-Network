@@ -5,7 +5,7 @@ import os
 
 load_dotenv()
 
-port = int(os.getenv("PORT", 10000))
+port = int(os.getenv("PORT", 7860))
 # Use Supabase if available, otherwise use SQLite for local development
 database_url = os.getenv("SUPABASE_DB_URL") or 'sqlite:///contacts.db'
 

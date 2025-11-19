@@ -21,13 +21,13 @@
 
     <form action="{{ url_for('add_contact_submit') }}" method="POST" onsubmit="return checkForm()">
         <label>First Name*</label>
-        <input type="text" name="first_name" required>
+        <input type="text" name="first_name">
         
         <label>Last Name*</label>
-        <input type="text" name="last_name" required>
+        <input type="text" name="last_name">
         
         <label>Email*</label>
-        <input type="email" name="email" required>
+        <input type="email" name="email">
         
         <label>Phone</label>
         <input type="text" name="phone">

@@ -3,7 +3,6 @@
 <head>
     <title>Community Directory - CODE Network</title>
     <link rel="stylesheet" href="/public/css/style.css" />
-    <script src="/public/js/script.js"></script>
 </head>
 <body>
     <!-- Top Page Navigation -->
@@ -14,12 +13,13 @@
             <span></span>
             <span></span>
         </div>
-        <div class="nav-links">
+        <div id="nav-links" class="nav-links">
             <a href="/">Home</a>
             <a href="/network" class="active">View Network</a>
             <a href="/add-contact">Add Contact</a>
             <a href="/guide">Guide</a>
         </div>
+        <img id="menu-button" onclick="openNav()" src="./public/images/burger1.jpg" width=60px height=60px>
     </nav>
 
 
@@ -158,6 +158,14 @@
     <footer>
         <p>&copy; 2025 CODE Network. Built for the CODE community.</p>
     </footer>
+    <div id="sidebar" class="sidebar">
+        <img class="close-button" onclick="closeNav()" src="./public/images/x2.svg">
+        <a href="/network" class="">Network</a>
+        <a href="/add-contact">Add Contact</a>
+        <a href="/guide">Guide</a>
+        
+    </div>
+    <script src="/public/js/script.js"></script>
 </body>
 </html>
 

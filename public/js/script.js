@@ -13,7 +13,7 @@ function checkForm(){
 }
 
 
-// search functionality 
+// search  
 // how to actually filter the contacts?
 function searchContacts(){
     var input=document.querySelector('.search-box');
@@ -39,14 +39,18 @@ function setupBurgerMenu(){
 }
 
 
-// everything runs when page finishes loading
-window.onload=function(){
-    console.log("page loaded!");
-    
-    var searchBox=document.querySelector('.search-box');
-    if(searchBox){
-        searchBox.addEventListener('keyup',searchContacts);
-    }
-    
-    setupBurgerMenu();
+
+// test
+window.openNav = function () {
+    document.getElementById("nav-links").style.display = "none";
+
+    document.getElementById("sidebar").style.width = "25%";
+    document.getElementById("main-div").style.marginRight = "25%";
+    document.getElementById("translucent-background").hidden = false;
+};
+window.closeNav = function () {
+    document.getElementById("nav-links").style.display = "flex";
+    document.getElementById("sidebar").style.width = "0";
+    document.getElementById("main-div").style.marginRight = "0";
+    document.getElementById("translucent-background").hidden = true;
 };

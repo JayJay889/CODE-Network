@@ -1,3 +1,14 @@
+---
+title: CODE Network App
+emoji: 🌐
+colorFrom: blue
+colorTo: purple
+sdk: docker
+pinned: false
+license: mit
+app_port: 7860
+---
+
 # CODE Network
 
 A contact management web application for the CODE community. Built with Python Flask and SQLite.
@@ -5,22 +16,26 @@ A contact management web application for the CODE community. Built with Python F
 ## Features
 
 ✨ **Full CRUD Operations**
+
 - ➕ Add new contacts with detailed information
 - 📋 View all contacts in a searchable directory
 - ✏️ Edit existing contact information
 - 🗑️ Delete contacts with confirmation
 
 🏷️ **Tags System**
+
 - Categorize contacts (Speaker, Mentor, Sponsor, Alumni, Partner)
 - Multiple tags per contact
 - Color-coded tag badges
 
 📱 **Responsive Design**
+
 - Mobile-friendly layout
 - Adapts to phone, tablet, and desktop screens
 - CSS Grid and Flexbox layouts
 
 🎯 **Additional Features**
+
 - Recent contacts display on homepage
 - LinkedIn and email links
 - Professional, clean UI
@@ -42,6 +57,7 @@ bash run.sh
 ```
 
 Or manually:
+
 ```bash
 python3 app.py
 ```
@@ -73,17 +89,20 @@ Project.py/
 ## Technologies Used
 
 **Backend:**
+
 - Python 3.13
 - Flask 3.1.2 (Web framework)
 - SQLAlchemy 2.0.44 (ORM)
 - SQLite (Database)
 
 **Frontend:**
+
 - HTML5
 - CSS3 (Grid, Flexbox, Media Queries)
 - Jinja2 (Template engine)
 
 **Development:**
+
 - python-dotenv (Environment variables)
 - Virtual environment (venv)
 

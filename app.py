@@ -2,12 +2,40 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
+import socket
+from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
 
 load_dotenv()
 
 port = int(os.getenv("PORT", 10000))
+
+def resolve_supabase_ipv4(url):
+    """
+    Helper to force IPv4 resolution for Supabase URLs to avoid 'Network is unreachable'
+    errors on environments that default to IPv6 (like Render) but can't route to it.
+    """
+    try:
+        if url and ("supabase.co" in url or "supabase.in" in url):
+            parsed = urlparse(url)
+            hostname = parsed.hostname
+            if hostname:
+                # Force IPv4 resolution
+                addr_info = socket.getaddrinfo(hostname, None, socket.AF_INET)
+                if addr_info:
+                    ip = addr_info[0][4][0]
+                    # Add hostaddr parameter to connection string
+                    query = parse_qs(parsed.query)
+                    query['hostaddr'] = [ip]
+                    new_query = urlencode(query, doseq=True)
+                    new_url = parsed._replace(query=new_query)
+                    return urlunparse(new_url)
+    except Exception as e:
+        print(f"Warning: Failed to resolve Supabase IPv4: {e}")
+    return url
+
 # Use Supabase if available, otherwise use SQLite for local development
-database_url = os.getenv("SUPABASE_DB_URL") or 'sqlite:///contacts.db'
+raw_db_url = os.getenv("SUPABASE_DB_URL")
+database_url = resolve_supabase_ipv4(raw_db_url) or 'sqlite:///contacts.db'
 
 # Check if we should use SQLite instead (for local dev or if Supabase fails)
 use_sqlite = os.getenv("USE_SQLITE", "false").lower() == "true"
@@ -127,7 +155,6 @@ def view_contact(id):
 
     person = Contact.query.get_or_404(id)
     return render_template('contact-detail.html', contact=person)
-
 
 
 

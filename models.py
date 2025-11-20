@@ -1,9 +1,9 @@
 from pymongo import ASCENDING
-
 class Contact:
     """
     Contact Model mirroring the SQL schema but adapted for MongoDB.
     """
+
     def __init__(self, first_name, last_name, email, phone=None, company=None, position=None, linkedin_url=None, value_description=None, tags=None, user_id=None, _id=None):
         self.first_name = first_name
         self.last_name = last_name
@@ -16,6 +16,8 @@ class Contact:
         self.tags = tags
         self.user_id = user_id  # reserved for future auth integration (e.g., Supabase, Auth0)
         self._id = _id
+
+
 
     def to_dict(self):
         """Converts the object to a dictionary for MongoDB insertion."""
@@ -31,7 +33,6 @@ class Contact:
             "tags": self.tags,
             "user_id": self.user_id
         }
-
     @staticmethod
     def init_indexes(mongo):
         """
@@ -39,9 +40,10 @@ class Contact:
         Equivalent to SQL constraints (e.g., UNIQUE).
         """
         try:
-            # Create unique index on email
             mongo.db.contacts.create_index([("email", ASCENDING)], unique=True)
             print("Indexes created successfully.")
+
+            
         except Exception as e:
             print(f"Error creating indexes: {e}")
 

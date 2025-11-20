@@ -5,37 +5,38 @@ from dotenv import load_dotenv
 import os
 import pymongo
 from models import Contact
-
 load_dotenv()
+
 
 port = int(os.getenv("PORT", 10000))
 
 app = Flask(__name__, template_folder='views', static_folder='public')
-
 # Configure MongoDB
-# Default to a local instance for dev if no env var
+
 mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/contacts_db")
 
-# Validate MONGO_URI format
+
 if not mongo_uri:
     raise ValueError("MONGO_URI is required. Please set it in your .env file or environment variables.")
 
 print(f"Connecting to MongoDB with URI: {mongo_uri[:30]}...")  # Log first 30 chars for debugging
 
+
 app.config["MONGO_URI"] = mongo_uri
 
-# Initialize PyMongo
+
 try:
     mongo = PyMongo(app)
-    # Verify connection immediately
+
     if mongo.db is None:
         raise RuntimeError("PyMongo failed to initialize. mongo.db is None. Check your MONGO_URI format.")
     print(f"MongoDB connected successfully. Database: {mongo.db.name}")
+
 except Exception as e:
     print(f"CRITICAL: Failed to initialize MongoDB connection: {e}")
     raise
 
-# Initialize indexes (model constraints) on startup
+
 with app.app_context():
     try:
         # Check if connection works
@@ -50,7 +51,7 @@ def home():
     try:
         if mongo.db is None:
             return "Database connection not available. Check MONGO_URI configuration.", 500
-        # Convert cursor to list for template rendering
+
         recent_contacts = list(mongo.db.contacts.find().sort('_id', -1).limit(5))
         return render_template('Homepage.html', recent_contacts=recent_contacts)
     except Exception as e:
@@ -61,7 +62,6 @@ def network():
     try:
         if mongo.db is None:
             return "Database connection not available. Check MONGO_URI configuration.", 500
-        # Convert cursor to list so template can use len() and iterate multiple times
         all_contacts = list(mongo.db.contacts.find())
         return render_template('Network.html', contacts=all_contacts)
     except Exception as e:
@@ -71,9 +71,12 @@ def network():
 def guide():
     return render_template('Guide-on-how-to-use-it.html')
 
+
 @app.route('/add-contact')
 def add_contact_form():
     return render_template('add-contact.html')
+
+
 
 @app.route('/add-contact', methods=['POST'])
 def add_contact_submit():
@@ -148,8 +151,8 @@ def edit_contact_submit(contact_id):
         )
     except pymongo.errors.DuplicateKeyError:
          return f"Error: A contact with email {email} already exists.", 400
-    
     return redirect(url_for('network'))
+
 
 @app.route('/delete-contact/<contact_id>')
 def delete_contact(contact_id):
@@ -157,16 +160,17 @@ def delete_contact(contact_id):
     return redirect(url_for('network'))
 
 # Routing
-
 @app.route('/contact/<id>')
 def view_contact(id):
     person = mongo.db.contacts.find_one_or_404({'_id': ObjectId(id)})
     return render_template('contact-detail.html', contact=person)
-
 @app.route('/person/<contact_id>')
 def show_person(contact_id):
     p = mongo.db.contacts.find_one_or_404({'_id': ObjectId(contact_id)})
     return render_template('contact-detail.html', contact=p)
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=port)

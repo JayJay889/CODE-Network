@@ -119,7 +119,7 @@
         {% if recent_contacts %}
             <div class="recent-contacts-grid">
                 {% for contact in recent_contacts %}
-                <a href="/contact/{{ contact.id }}" style="text-decoration:none; color:inherit;">
+                <a href="/contact/{{ contact._id }}" style="text-decoration:none; color:inherit;">
                 <div class="recent-contact-card">
                     <div class="contact-avatar">👤</div>
                     <div class="contact-info">

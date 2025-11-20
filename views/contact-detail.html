@@ -53,8 +53,8 @@
         {% endif %}
         
         <br>
-        <a href="{{ url_for('edit_contact_form', contact_id=contact.id) }}" class="btn btn-primary">Edit Contact</a>
-        <a href="{{ url_for('delete_contact', contact_id=contact.id) }}" class="btn btn-secondary" onclick="return confirm('Delete this contact?')">Delete</a>
+        <a href="{{ url_for('edit_contact_form', contact_id=contact._id) }}" class="btn btn-primary">Edit Contact</a>
+        <a href="{{ url_for('delete_contact', contact_id=contact._id) }}" class="btn btn-secondary" onclick="return confirm('Delete this contact?')">Delete</a>
     </div>
 
 </body>

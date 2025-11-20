@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 import os
 import socket
+import dns.resolver
 from urllib.parse import urlparse, urlunparse, parse_qs, urlencode
 
 load_dotenv()
@@ -12,23 +13,38 @@ port = int(os.getenv("PORT", 10000))
 def resolve_supabase_ipv4(url):
     """
     Helper to force IPv4 resolution for Supabase URLs to avoid 'Network is unreachable'
-    errors on environments that default to IPv6 (like Render) but can't route to it.
+    errors on environments that default to IPv6 (like Render/Vercel) but can't route to it.
     """
     try:
         if url and ("supabase.co" in url or "supabase.in" in url):
             parsed = urlparse(url)
             hostname = parsed.hostname
             if hostname:
-                # Force IPv4 resolution
-                addr_info = socket.getaddrinfo(hostname, None, socket.AF_INET)
-                if addr_info:
-                    ip = addr_info[0][4][0]
-                    # Add hostaddr parameter to connection string
-                    query = parse_qs(parsed.query)
-                    query['hostaddr'] = [ip]
-                    new_query = urlencode(query, doseq=True)
-                    new_url = parsed._replace(query=new_query)
-                    return urlunparse(new_url)
+                # Force IPv4 resolution using public DNS (Google/Cloudflare)
+                # This bypasses local DNS issues where A records might be missing
+                try:
+                    resolver = dns.resolver.Resolver()
+                    resolver.nameservers = ['8.8.8.8', '1.1.1.1']
+                    answer = resolver.resolve(hostname, 'A')
+                    if answer:
+                        ip = answer[0].to_text()
+                        # Add hostaddr parameter to connection string
+                        query = parse_qs(parsed.query)
+                        query['hostaddr'] = [ip]
+                        new_query = urlencode(query, doseq=True)
+                        new_url = parsed._replace(query=new_query)
+                        return urlunparse(new_url)
+                except Exception as dns_error:
+                    print(f"DNS resolution failed with dnspython: {dns_error}")
+                    # Fallback to socket.getaddrinfo if dnspython fails
+                    addr_info = socket.getaddrinfo(hostname, None, socket.AF_INET)
+                    if addr_info:
+                        ip = addr_info[0][4][0]
+                        query = parse_qs(parsed.query)
+                        query['hostaddr'] = [ip]
+                        new_query = urlencode(query, doseq=True)
+                        new_url = parsed._replace(query=new_query)
+                        return urlunparse(new_url)
     except Exception as e:
         print(f"Warning: Failed to resolve Supabase IPv4: {e}")
     return url
@@ -63,8 +79,11 @@ class Contact(db.Model):
 @app.route('/')
 def home():
     # last 5 people in Database
-    stuff = Contact.query.order_by(Contact.id.desc()).limit(5).all()
-    return render_template('Homepage.html', recent_contacts=stuff)
+    try:
+        stuff = Contact.query.order_by(Contact.id.desc()).limit(5).all()
+        return render_template('Homepage.html', recent_contacts=stuff)
+    except Exception as e:
+        return f"Database error: {str(e)}", 500
 
 @app.route('/network')
 def network():

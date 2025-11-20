@@ -1,74 +1,61 @@
 # Running the Application Locally
 
-## The Problem (SOLVED)
+The application now uses MongoDB (Atlas or self-hosted) for all persistence, so there is no longer any SQLite or Supabase dependency.
 
-The app was failing to start because it was trying to connect to a Supabase database that wasn't accessible. The error was:
+## 1. Prerequisites
+
+1. Python 3.13 (see `requirements.txt`)
+2. A running MongoDB instance:
+   - **Recommended:** MongoDB Atlas free-tier cluster
+   - **Local Dev:** `mongodb://127.0.0.1:27017/contacts_db` (start the Mongo daemon with Homebrew, Docker, etc.)
+
+## 2. Configure Environment Variables
+
+Create a `.env` file (or export variables in your shell) with at least:
 
 ```
-psycopg2.OperationalError: could not translate host name "db.evogkfxqtiluxkmkuxpy.supabase.co" to address
+MONGO_URI="your-mongodb-connection-string"
+PORT=10000  # optional; defaults to 10000 locally and the value Render supplies in production
 ```
 
-## The Solution
+If you just want to run against a local MongoDB instance, you can skip `MONGO_URI` entirely—the app (and `run_local.sh`) default to `mongodb://127.0.0.1:27017/contacts_db`.
 
-You now have two ways to run the application:
+## 3. Install Dependencies
 
-### Option 1: Run with SQLite (Local Development) - RECOMMENDED
+```bash
+cd Project.py
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-Use the new script that forces SQLite usage:
+## 4. Start the Application
+
+Use the helper script (auto-sets a sensible local `MONGO_URI`):
 
 ```bash
 ./run_local.sh
 ```
 
-Or manually:
+Or run manually:
 
 ```bash
-source venv/bin/activate
-export USE_SQLITE=true
 python3 app.py
 ```
 
-### Option 2: Use Supabase
+## 5. Access the UI
 
-If you want to use Supabase, make sure your `.env` file has the correct database URL and the database is accessible. Then run:
-
-```bash
-./run.sh
-```
-
-## Accessing the Application
-
-Once running, visit:
-- **Local**: http://127.0.0.1:10000
-- **Network**: http://192.168.8.251:10000 (accessible from other devices on your network)
-
-## What Changed
-
-The `app.py` file now checks for a `USE_SQLITE` environment variable. When set to `true`, it will use the local SQLite database (`contacts.db`) instead of trying to connect to Supabase.
-
-## Database Files
-
-- **SQLite**: Data is stored in `instance/contacts.db`
-- **Supabase**: Data is stored remotely (when configured properly)
+- Local machine: http://127.0.0.1:10000
+- LAN (replace with your IP): http://<your-ip>:10000
 
 ## Troubleshooting
 
-If you still have issues:
-
-1. Make sure the virtual environment is activated:
-   ```bash
-   source venv/bin/activate
-   ```
-
-2. Check that all dependencies are installed:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Make sure port 10000 is not already in use:
-   ```bash
-   lsof -i :10000
-   ```
-
-4. Check the `.env` file (if you want to use Supabase, ensure the URL is correct)
+1. **Cannot connect to MongoDB**
+   - Verify `MONGO_URI` is correct and network-accessible.
+   - For Atlas, allow your IP in the Network Access tab and confirm the username/password.
+2. **Dependencies missing**
+   - Re-run `pip install -r requirements.txt` inside the virtual env.
+3. **Port already in use**
+   - `lsof -i :10000` and stop the conflicting process, or set `PORT` to an open port.
+4. **Auth/index errors**
+   - The app auto-creates a unique index on `contacts.email`. Drop/rename any conflicting documents before restarting if duplicates exist.
 

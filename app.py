@@ -50,9 +50,9 @@ def home():
     try:
         if mongo.db is None:
             return "Database connection not available. Check MONGO_URI configuration.", 500
-        # MongoDB cursors are iterable
-        stuff = mongo.db.contacts.find().sort('_id', -1).limit(5)
-        return render_template('Homepage.html', recent_contacts=stuff)
+        # Convert cursor to list for template rendering
+        recent_contacts = list(mongo.db.contacts.find().sort('_id', -1).limit(5))
+        return render_template('Homepage.html', recent_contacts=recent_contacts)
     except Exception as e:
         return f"Database error: {str(e)}", 500
 
@@ -61,7 +61,8 @@ def network():
     try:
         if mongo.db is None:
             return "Database connection not available. Check MONGO_URI configuration.", 500
-        all_contacts = mongo.db.contacts.find()
+        # Convert cursor to list so template can use len() and iterate multiple times
+        all_contacts = list(mongo.db.contacts.find())
         return render_template('Network.html', contacts=all_contacts)
     except Exception as e:
         return f"Database error: {str(e)}", 500

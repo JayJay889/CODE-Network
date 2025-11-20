@@ -14,9 +14,26 @@ app = Flask(__name__, template_folder='views', static_folder='public')
 
 # Configure MongoDB
 # Default to a local instance for dev if no env var
-app.config["MONGO_URI"] = os.getenv("MONGO_URI", "mongodb://localhost:27017/contacts_db")
+mongo_uri = os.getenv("MONGO_URI", "mongodb://localhost:27017/contacts_db")
 
-mongo = PyMongo(app)
+# Validate MONGO_URI format
+if not mongo_uri:
+    raise ValueError("MONGO_URI is required. Please set it in your .env file or environment variables.")
+
+print(f"Connecting to MongoDB with URI: {mongo_uri[:30]}...")  # Log first 30 chars for debugging
+
+app.config["MONGO_URI"] = mongo_uri
+
+# Initialize PyMongo
+try:
+    mongo = PyMongo(app)
+    # Verify connection immediately
+    if mongo.db is None:
+        raise RuntimeError("PyMongo failed to initialize. mongo.db is None. Check your MONGO_URI format.")
+    print(f"MongoDB connected successfully. Database: {mongo.db.name}")
+except Exception as e:
+    print(f"CRITICAL: Failed to initialize MongoDB connection: {e}")
+    raise
 
 # Initialize indexes (model constraints) on startup
 with app.app_context():
@@ -31,6 +48,8 @@ with app.app_context():
 def home():
     # last 5 people in Database
     try:
+        if mongo.db is None:
+            return "Database connection not available. Check MONGO_URI configuration.", 500
         # MongoDB cursors are iterable
         stuff = mongo.db.contacts.find().sort('_id', -1).limit(5)
         return render_template('Homepage.html', recent_contacts=stuff)
@@ -39,8 +58,13 @@ def home():
 
 @app.route('/network')
 def network():
-    all_contacts = mongo.db.contacts.find()
-    return render_template('Network.html', contacts=all_contacts)
+    try:
+        if mongo.db is None:
+            return "Database connection not available. Check MONGO_URI configuration.", 500
+        all_contacts = mongo.db.contacts.find()
+        return render_template('Network.html', contacts=all_contacts)
+    except Exception as e:
+        return f"Database error: {str(e)}", 500
 
 @app.route('/guide')
 def guide():

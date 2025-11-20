@@ -1,6 +1,6 @@
 # CODE Network
 
-A contact management web application for the CODE community. Built with Python Flask and SQLite.
+A contact management web application for the CODE community. Built with Python Flask and MongoDB (Atlas or self-hosted).
 
 ## Features
 
@@ -35,7 +35,18 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Run the app
+### 2. Configure environment
+
+Create a `.env` file with your MongoDB connection string (Atlas or local):
+
+```
+MONGO_URI="your-mongodb-connection-string"
+PORT=10000  # optional locally; Render supplies one in production
+```
+
+If `MONGO_URI` is not provided the app falls back to `mongodb://localhost:27017/contacts_db`, so you can skip this step for local testing if you already have MongoDB running on your machine.
+
+### 3. Run the app
 
 ```bash
 bash run.sh
@@ -46,11 +57,20 @@ Or manually:
 python3 app.py
 ```
 
-### 3. Open in browser
+### 4. Open in browser
 
-Visit: http://localhost:8080
+Visit: http://localhost:10000
 
-The SQLite database will be created automatically on first run.
+Your MongoDB cluster/instance will automatically receive a `contacts` collection on first insert and a unique index on the `email` field.
+
+## MongoDB Atlas Setup (Recommended for Production)
+
+1. Create a free cluster at https://www.mongodb.com/cloud/atlas.
+2. In **Database Access**, add a user with read/write permissions.
+3. In **Network Access**, allow your IP (and Render’s IP range for deployment).
+4. Create a database named `contacts_db` (optional—Mongo will create it on demand).
+5. Copy the connection string from “Connect → Drivers” and store it as `MONGO_URI`.
+6. Run the app once so it can create the `contacts` collection and the unique index on `email`.
 
 ## Project Structure
 
@@ -65,7 +85,6 @@ Project.py/
 ├── public/
 │   ├── css/style.css   # Responsive styling
 │   └── images/         # Image assets
-├── contacts.db         # SQLite database (auto-generated)
 ├── requirements.txt    # Python dependencies
 └── run.sh             # Startup script
 ```
@@ -75,8 +94,8 @@ Project.py/
 **Backend:**
 - Python 3.13
 - Flask 3.1.2 (Web framework)
-- SQLAlchemy 2.0.44 (ORM)
-- SQLite (Database)
+- Flask-PyMongo + PyMongo (MongoDB driver)
+- MongoDB Atlas / MongoDB Community Edition
 
 **Frontend:**
 - HTML5
@@ -89,18 +108,22 @@ Project.py/
 
 ## Database Schema
 
-```python
-Contact:
-  - id (Primary Key)
-  - first_name (String, required)
-  - last_name (String, required)
-  - email (String, unique, required)
-  - phone (String)
-  - company (String)
-  - position (String)
-  - linkedin_url (String)
-  - value_description (Text)
-  - tags (String, comma-separated)
+Each contact is stored as a MongoDB document in the `contacts` collection:
+
+```
+{
+  "_id": ObjectId,
+  "first_name": string,
+  "last_name": string,
+  "email": string (unique),
+  "phone": string | null,
+  "company": string | null,
+  "position": string | null,
+  "linkedin_url": string | null,
+  "value_description": string | null,
+  "tags": string | null,  # comma-separated until tag array support is added
+  "user_id": string | null
+}
 ```
 
 ## Usage
@@ -113,10 +136,11 @@ Contact:
 
 ## Development Notes
 
-- Uses SQLite for simplicity (easy setup, no external database needed)
+- Uses MongoDB for persistence (Atlas for production, local for dev)
+- `Contact.init_indexes` enforces a unique index on `email`
 - Responsive breakpoints: 600px (mobile), 768px (tablet), 1024px+ (desktop)
-- Tags stored as comma-separated strings for simplicity
-- Auto-creates database tables on first run
+- Tags stored as comma-separated strings for now
+- Run `./run_local.sh` to start with a local MongoDB connection string automatically
 
 ## Future Improvements
 
